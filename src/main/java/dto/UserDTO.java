@@ -5,9 +5,10 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * Just because I know about DTO and usefulness of this
+ */
 @Builder
-@AllArgsConstructor
-@NoArgsConstructor
 @Data
 public class UserDTO {
 
@@ -16,4 +17,6 @@ public class UserDTO {
     private String name;
 
     private String email;
+
+    private String password;
 }
