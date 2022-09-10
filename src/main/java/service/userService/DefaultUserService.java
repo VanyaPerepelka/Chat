@@ -1,10 +1,9 @@
 package service.userService;
 
 import dto.UserDTO;
-import org.springframework.messaging.simp.user.UserRegistryMessageHandler;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import repo.UsersRepository;
-import service.exception.ValidationException;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -15,9 +14,12 @@ public class DefaultUserService implements UserService{
     UsersRepository usersRepository;
     UserConverter userConverter;
 
+    BCryptPasswordEncoder bCryptPasswordEncoder;
+
     @Override
     public UserDTO saveUser(UserDTO userDTO){
         if(validateUserDTO(userDTO)){
+            userDTO.setPassword(bCryptPasswordEncoder.encode(userDTO.getPassword()));
             usersRepository.save(userConverter.fromUserDTOtoUser(userDTO));
         }
         return userDTO;
